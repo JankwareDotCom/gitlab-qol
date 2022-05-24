@@ -3,10 +3,10 @@ import { GetFeatureService } from './core/FeatureService/FeatureService';
 
 // ADD FEATURE IMPORTS START
 import EpicGroupSorting from './features/EpicGroupSorting/sortByEpic';
-import TwoStepMerge from './features/EpicGroupSorting/twoStepMerge';
+import LabelForMerge from './features/EpicGroupSorting/labelForMerge';
 // ADD FEATURE IMPORTS END
 
 /// REGISTER FEATURES IN THIS METHOD
 export default function ConfigureFeatures() {
-  GetFeatureService().addFeature(new EpicGroupSorting()).addFeature(new TwoStepMerge());
+  GetFeatureService().addFeature(new EpicGroupSorting()).addFeature(new LabelForMerge());
 }

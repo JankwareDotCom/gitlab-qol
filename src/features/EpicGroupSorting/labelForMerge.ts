@@ -1,16 +1,16 @@
 import AFeature from '../../core/IFeature';
 import featureStore from '../../core/FeatureStore/FeatureStore';
-import { FeatureOption } from '../../core/FeatureOptionService/IFeatureOption';
+import { FeatureOption, FeatureOptionList } from '../../core/FeatureOptionService/IFeatureOption';
 
-export default class TwoStepMerge extends AFeature {
+export default class LabelForMerge extends AFeature {
   name = 'Disable Merge Without Label';
-  description = 'Disable the Merge button until a specified label is present';
+  description = 'Disable the Merge button until a specified label configuration is present';
 
-  _labelCache = { timestamp: new Date(), labels: Array<string>() };
+  _labelCache = { timestamp: new Date(), labels: Array<string>(), mode: 'ANY' };
 
   constructor() {
     super();
-    this.options.push(new TwoStepMergeLabelOption());
+    this.options.push(new MergeLabelOption(), new MergeMultiLabelOptionBehavior());
   }
 
   canInjectFeature(): boolean {
@@ -40,20 +40,27 @@ export default class TwoStepMerge extends AFeature {
     labelElements = labelElements.concat(
       Array<HTMLSpanElement>().slice.call(labelContainer.getElementsByClassName('gl-label-text')),
     );
-    const labels = labelElements.map((m) => m.innerText.trim());
 
-    const desiredLabels = await this._getDesiredLabels();
+    const unique = (value: string, index: number, self: string[]) => {
+      return self.indexOf(value) === index;
+    };
+
+    const labels = labelElements.map((m) => m.innerText.trim()).filter(unique);
+
+    const desiredLabelSettings = await this._getDesiredLabelSettings();
+    const desiredLabels = desiredLabelSettings.labels.filter(unique);
 
     const label = desiredLabels.filter((v) => labels.includes(v));
-    return label.length > 0;
+
+    return desiredLabelSettings.mode === 'ANY' ? label.length > 0 : label.length === desiredLabels.length;
   }
 
-  async _getDesiredLabels() {
+  async _getDesiredLabelSettings() {
     const maxAgeMinutes = 1;
     const maxTs = new Date(new Date().getTime() - 60 * maxAgeMinutes * 1000); // - N Minutes
 
     if (this._labelCache.labels.length > 0 && this._labelCache.timestamp >= maxTs) {
-      return this._labelCache.labels;
+      return this._labelCache;
     }
 
     const desiredLabelCsv = (await featureStore.getOptionValueAsync<string>(this.name, 'Label Text')) ?? '';
@@ -61,17 +68,27 @@ export default class TwoStepMerge extends AFeature {
 
     this._labelCache.labels = desiredLabels;
     this._labelCache.timestamp = new Date();
-
-    return this._labelCache.labels;
+    this._labelCache.mode =
+      (await featureStore.getOptionValueAsync<string>(this.name, 'Multi-Label Behavior')) ?? 'ANY';
+    return this._labelCache;
   }
 }
 
-export class TwoStepMergeLabelOption extends FeatureOption<string> {
+class MergeLabelOption extends FeatureOption<string> {
   constructor() {
     super(
       'Label Text',
       '[CASE SENSITIVE] Merge requests without any of the following (comma-separated) labels will have the merge button disabled.',
       '',
     );
+  }
+}
+
+class MergeMultiLabelOptionBehavior extends FeatureOptionList<string> {
+  constructor() {
+    super('Multi-Label Behavior', 'Determines if ANY or ALL of the lables are required to merge', 'ANY', {
+      ANY: 'ANY',
+      ALL: 'ALL',
+    });
   }
 }
