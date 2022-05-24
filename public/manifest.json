@@ -1,6 +1,7 @@
 {
     "name": "Gitlab QOL",
-    "description": "Adding features to GitLab; This extension is not endorsed by, directly affiliated with, maintained, authorized, or sponsored by GitLab.",
+    "description": "Add features to GitLab; This extension is not endorsed by, directly affiliated with, maintained, authorized, or sponsored by GitLab.",
+    "homepage_url": "https://github.com/JankwareDotCom/gitlab-qol",
     "version": "0.2",
     "manifest_version": 3,
     "icons": {
