@@ -6,16 +6,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@latest
-      - uses: Borales/actions-yarn@latest
+      - uses: Borales/actions-yarn@2.3.0
         with:
           cmd: install
-      - uses: Borales/actions-yarn@latest
+      - uses: Borales/actions-yarn@2.3.0
         with:
           cmd: lint
-      - uses: Borales/actions-yarn@latest
+      - uses: Borales/actions-yarn@2.3.0
         with:
           cmd: build
-      - uses: papeloto/action-zip@latest
+      - uses: papeloto/action-zip@v1
         with:
           files: dist/
           dest: extension.zip
