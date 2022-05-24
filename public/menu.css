@@ -1,0 +1,17 @@
+body {
+    width: 480px;
+}
+
+#feature-list {
+    list-style: none;
+    width: 480px;
+}
+
+#feature-list > li > label {
+    width: 290px;
+    text-overflow: ellipsis;
+}
+
+#feature-list > li > input {
+    width: 10px;
+}

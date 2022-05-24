@@ -1,0 +1,31 @@
+{
+    "name": "Gitlab QOL",
+    "description": "Adding features to GitLab; This extension is not endorsed by, directly affiliated with, maintained, authorized, or sponsored by GitLab.",
+    "version": "0.2",
+    "manifest_version": 3,
+    "icons": {
+         "16":  "16.png",
+         "48":  "48.png",
+        "128": "128.png"
+    },
+    "permissions": [
+        "storage",
+        "tabs",
+        "scripting"
+    ],
+    "host_permissions": [
+        "http://gitlab.com/*",
+        "https://gitlab.com/*"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "action": {
+        "default_popup": "menu.html"
+    },
+    "content_scripts": [{
+        "matches" : ["*://gitlab.com/*"],
+        "js" : ["featureApplicator.js"],
+        "run_at": "document_end"
+    }]
+}
