@@ -5,25 +5,25 @@ jobs:
     name: build-prod
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout
-      - uses: Borales/actions-yarn
+      - uses: actions/checkout@latest
+      - uses: Borales/actions-yarn@latest
         with:
           cmd: install
-      - uses: Borales/actions-yarn
+      - uses: Borales/actions-yarn@latest
         with:
           cmd: lint
-      - uses: Borales/actions-yarn
+      - uses: Borales/actions-yarn@latest
         with:
           cmd: build
-      - uses: papeloto/action-zip
+      - uses: papeloto/action-zip@latest
         with:
           files: dist/
           dest: extension.zip
-      - uses: actions/upload-artifact
+      - uses: actions/upload-artifact@latest
         with:
           name: extension
           path: ${{ github.workspace }}/extension.zip
-      # - uses: Klemensas/chrome-extension-upload-action
+      # - uses: Klemensas/chrome-extension-upload-action@latest
       #   with:
       #     refresh-token:
       #     client-id:
