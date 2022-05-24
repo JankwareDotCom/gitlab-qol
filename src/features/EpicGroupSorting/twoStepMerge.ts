@@ -24,20 +24,19 @@ export default class TwoStepMerge extends AFeature {
         Array<HTMLButtonElement>()
           .slice.call(document.getElementsByClassName('accept-merge-request'))
           .forEach((e) => {
-            if (canShow == e.disabled) {
-              e.disabled = !canShow;
-            }
+            e.disabled = !canShow;
           });
       });
-    }, 500);
+    }, 1000);
 
     window.onbeforeunload = () => clearInterval(feature);
   }
 
   async _canShowButtonAsync(): Promise<boolean> {
-    const labelElements = Array<HTMLSpanElement>().slice.call(document.getElementsByClassName('gl-label-text-scoped'));
-    labelElements.concat(Array<HTMLSpanElement>().slice.call(document.getElementsByClassName('gl-label-text')));
-    const labels = labelElements.map((m) => m.innerText);
+    const labelContainer = document.getElementsByClassName("labels-select-wrapper")[0];
+    let labelElements = Array<HTMLSpanElement>().slice.call(labelContainer.getElementsByClassName('gl-label-text-scoped'));
+    labelElements = labelElements.concat(Array<HTMLSpanElement>().slice.call(labelContainer.getElementsByClassName('gl-label-text')));
+    const labels = labelElements.map((m) => m.innerText.trim());
 
     const desiredLabels = await this._getDesiredLabels();
 
