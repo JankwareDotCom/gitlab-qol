@@ -1,6 +1,6 @@
-import IFeature from "../IFeature";
+import IFeature from '../IFeature';
 
 export interface IFeatureService {
-    addFeature(feature: IFeature): IFeatureService;
-    getFeatures(): IFeature[];
+  addFeature(feature: IFeature): IFeatureService;
+  getFeatures(): IFeature[];
 }

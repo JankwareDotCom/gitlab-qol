@@ -6,10 +6,16 @@
   "devDependencies": {
     "@testdeck/mocha": "^0.2.0",
     "@types/chrome": "^0.0.184",
+    "@typescript-eslint/eslint-plugin": "^5.26.0",
+    "@typescript-eslint/parser": "^5.26.0",
     "chai": "^4.3.6",
     "copy-webpack-plugin": "^10.2.4",
+    "eslint": "^8.16.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
     "mocha": "^10.0.0",
     "nyc": "^15.1.0",
+    "prettier": "^2.6.2",
     "ts-loader": "^9.3.0",
     "ts-mockito": "^2.6.1",
     "ts-node": "^10.7.0",
@@ -19,7 +25,9 @@
   },
   "scripts": {
     "build": "webpack --config webpack/webpack.config.js",
-    "watch": "webpack --watch --config webpack/webpack.watch.config.js"
+    "watch": "webpack --watch --config webpack/webpack.watch.config.js",
+    "lint": "eslint . --ext .ts",
+    "prettier": "prettier --config .prettierrc src/** --write"
   },
   "dependencies": {}
 }

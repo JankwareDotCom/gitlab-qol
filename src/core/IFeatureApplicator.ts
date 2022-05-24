@@ -1,3 +1,3 @@
 export default interface IFeatureApplicator {
-    applyFeatures(): void;
+  applyFeatures(): void;
 }
