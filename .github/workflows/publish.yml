@@ -19,7 +19,6 @@ jobs:
         with:
           files: dist/
           dest: extension.zip
-          recursive: false
       - uses: actions/upload-artifact@v1
         with:
           name: extension
