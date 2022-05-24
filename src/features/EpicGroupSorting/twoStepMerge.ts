@@ -65,6 +65,6 @@ export default class TwoStepMerge extends AFeature {
 
 export class TwoStepMergeLabelOption extends FeatureOption<string> {
   constructor() {
-    super('Label Text', '[CASE SENSITIVE] labels with with the merge button will be enabled; comma separated.', '');
+    super('Label Text', '[CASE SENSITIVE] Merge requests without any of the following (comma-separated) labels will have the merge button disabled.', '');
   }
 }

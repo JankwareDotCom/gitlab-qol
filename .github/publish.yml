@@ -1,0 +1,33 @@
+name: Build Chrome Extension
+on: [workflow_dispatch]
+jobs:
+  build:
+    name: build-prod
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout
+      - uses: Borales/actions-yarn
+        with:
+          cmd: install
+      - uses: Borales/actions-yarn
+        with:
+          cmd: lint
+      - uses: Borales/actions-yarn
+        with:
+          cmd: build
+      - uses: papeloto/action-zip
+        with:
+          files: dist/
+          dest: extension.zip
+      - uses: actions/upload-artifact
+        with:
+          name: extension
+          path: ${{ github.workspace }}/extension.zip
+      # - uses: Klemensas/chrome-extension-upload-action
+      #   with:
+      #     refresh-token:
+      #     client-id:
+      #     client-secret:
+      #     file-name: ./extension.zip
+      #     app-id:
+      #     publish: true
