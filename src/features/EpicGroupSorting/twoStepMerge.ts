@@ -33,9 +33,13 @@ export default class TwoStepMerge extends AFeature {
   }
 
   async _canShowButtonAsync(): Promise<boolean> {
-    const labelContainer = document.getElementsByClassName("labels-select-wrapper")[0];
-    let labelElements = Array<HTMLSpanElement>().slice.call(labelContainer.getElementsByClassName('gl-label-text-scoped'));
-    labelElements = labelElements.concat(Array<HTMLSpanElement>().slice.call(labelContainer.getElementsByClassName('gl-label-text')));
+    const labelContainer = document.getElementsByClassName('labels-select-wrapper')[0];
+    let labelElements = Array<HTMLSpanElement>().slice.call(
+      labelContainer.getElementsByClassName('gl-label-text-scoped'),
+    );
+    labelElements = labelElements.concat(
+      Array<HTMLSpanElement>().slice.call(labelContainer.getElementsByClassName('gl-label-text')),
+    );
     const labels = labelElements.map((m) => m.innerText.trim());
 
     const desiredLabels = await this._getDesiredLabels();
