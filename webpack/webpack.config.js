@@ -21,6 +21,20 @@ module.exports = {
             loader: "ts-loader",
             exclude: /node_modules/,
          },
+         {
+            test: /\.css$/,
+            include: path.join(__dirname, "..", "src", "components"),
+            use: [
+              'style-loader',
+              '@teamsupercell/typings-for-css-modules-loader', 
+              {
+               loader: 'css-loader', 
+                options: {
+                  modules: true
+                }
+              }
+            ]
+          }
       ],
    },
    plugins: [

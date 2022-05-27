@@ -1,0 +1,49 @@
+accordian-menu,
+accordian-menu-item,
+accordian-menu-item-content,
+accordian-menu-item-header {
+  display: block;
+  width: auto;
+  margin: auto;
+  max-width: 100%;
+}
+
+.accordian-menu-item {
+  border: 1px solid #008080;
+  border-bottom: none;
+}
+
+.accordian-menu-item:last-child {
+  border-bottom: 1px solid #008080;
+}
+
+.accordian-header {
+  display: flex;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.accordian-title {
+  flex: 1;
+}
+
+.accordian-icon {
+  width: 2em;
+}
+
+.accordian-content {
+  padding: 10px;
+  max-height: 0;
+  transition: max-height 1s ease-out;
+  overflow: hidden;
+  padding: 0;
+}
+
+.accordian-content-transition {
+  max-height: 1500px;
+  transition: max-height 2.5s ease-in;
+}
+
+.accordian-content-container {
+  margin: 0 15px;
+}
