@@ -7,15 +7,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         name: Checkout
-      - uses: Borales/actions-yarn@v2.3.0
+      - uses: Borales/actions-yarn@v3.0.0
         name: Get Dependencies
         with:
           cmd: install
-      - uses: Borales/actions-yarn@v2.3.0
+      - uses: Borales/actions-yarn@v3.0.0
         name: Lint the Code
         with:
           cmd: lint
-      - uses: Borales/actions-yarn@v2.3.0
+      - uses: Borales/actions-yarn@v3.0.0
         name: Build the Extension
         with:
           cmd: build
