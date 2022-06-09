@@ -5,21 +5,27 @@ jobs:
     name: build-prod
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+        name: Checkout
       - uses: Borales/actions-yarn@v2.3.0
+        name: Get Dependencies
         with:
           cmd: install
       - uses: Borales/actions-yarn@v2.3.0
+        name: Lint the Code
         with:
           cmd: lint
       - uses: Borales/actions-yarn@v2.3.0
+        name: Build the Extension
         with:
           cmd: build
       - uses: papeloto/action-zip@v1
+        name: Package the Extension
         with:
           files: dist/
           dest: extension.zip
       - uses: actions/upload-artifact@v1
+        name: Save Extension Artifact
         with:
           name: extension
           path: ${{ github.workspace }}/extension.zip
